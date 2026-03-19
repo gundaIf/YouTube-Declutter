@@ -33,7 +33,6 @@ style.textContent = `
   }
 
   /* === HOMEPAGE RECOMMENDATIONS === */
-  /* Only hides recommendations on the homepage, not watch pages */
   ytd-browse[page-subtype="home"] ytd-rich-grid-renderer {
     display: none !important;
   }
@@ -49,25 +48,68 @@ style.textContent = `
 `;
 document.documentElement.appendChild(style);
 
-// Selectors for elements we want to hide via JS
+// -----------------------------------------------
+// REDIRECT: Logo click and Home button click
+// -----------------------------------------------
+function redirectHomeToSubscriptions() {
+  // YouTube logo
+  const logo = document.querySelector("a#logo, ytd-logo a, #logo a");
+
+  // Home button in sidebar
+  const homeButton = document.querySelector(
+    "ytd-guide-entry-renderer a[href='/'], ytd-mini-guide-entry-renderer a[href='/']"
+  );
+
+  if (logo && !logo.dataset.redirected) {
+    logo.dataset.redirected = "true";
+    logo.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "https://www.youtube.com/feed/subscriptions";
+    });
+  }
+
+  if (homeButton && !homeButton.dataset.redirected) {
+    homeButton.dataset.redirected = "true";
+    homeButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "https://www.youtube.com/feed/subscriptions";
+    });
+  }
+}
+
+// -----------------------------------------------
+// Also catch SPA navigation via URL changes
+// -----------------------------------------------
+let lastUrl = location.href;
+
+function checkUrlChange() {
+  const currentUrl = location.href;
+  if (currentUrl !== lastUrl) {
+    lastUrl = currentUrl;
+
+    const url = new URL(currentUrl);
+    // If YouTube navigated to homepage, redirect to subscriptions
+    if (
+      url.hostname === "www.youtube.com" &&
+      (url.pathname === "/" || url.pathname === "")
+    ) {
+      window.location.href = "https://www.youtube.com/feed/subscriptions";
+    }
+  }
+}
+
+// -----------------------------------------------
+// Hide unwanted elements
+// -----------------------------------------------
 const HIDE_SELECTORS = [
-  // Shorts shelf
   "ytd-rich-shelf-renderer[is-shorts]",
   "ytd-reel-shelf-renderer",
   "ytd-shorts",
   "ytd-reel-item-renderer",
-
-  // Shorts in sidebar nav
   "ytd-guide-entry-renderer a[title='Shorts']",
-
-  // Shorts in search results
   "ytd-video-renderer:has([overlay-style='SHORTS'])",
-
-  // Ads
   "#masthead-ad",
   "ytd-ad-slot-renderer",
-
-  // Homepage recommendations only
   "ytd-browse[page-subtype='home'] ytd-rich-grid-renderer",
 ];
 
@@ -83,9 +125,13 @@ function hideElements() {
   });
 }
 
-// Watch for dynamic content since YouTube is a SPA
+// -----------------------------------------------
+// MutationObserver — handles SPA dynamic content
+// -----------------------------------------------
 const observer = new MutationObserver(() => {
   hideElements();
+  redirectHomeToSubscriptions();
+  checkUrlChange();
 });
 
 observer.observe(document.documentElement, {
@@ -93,4 +139,6 @@ observer.observe(document.documentElement, {
   subtree: true,
 });
 
+// Run on initial load
 hideElements();
+redirectHomeToSubscriptions();
