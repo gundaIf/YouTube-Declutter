@@ -1,0 +1,60 @@
+/* === SHORTS === */
+ytd-rich-shelf-renderer[is-shorts],
+ytd-reel-shelf-renderer,
+ytd-shorts,
+ytd-reel-item-renderer {
+  display: none !important;
+}
+
+/* Shorts in sidebar nav */
+ytd-guide-entry-renderer a[title="Shorts"],
+ytd-mini-guide-entry-renderer a[title="Shorts"] {
+  display: none !important;
+}
+
+/* Shorts in search results */
+ytd-video-renderer:has([overlay-style="SHORTS"]) {
+  display: none !important;
+}
+
+/* Shorts shelf label */
+yt-chip-cloud-chip-renderer:has([title="Shorts"]) {
+  display: none !important;
+}
+
+/* === RECOMMENDATIONS === */
+
+/* Right sidebar on watch page */
+#secondary #related {
+  display: none !important;
+}
+
+/* Autoplay next video */
+ytd-watch-next-secondary-results-renderer {
+  display: none !important;
+}
+
+/* === ADS === */
+#masthead-ad,
+ytd-ad-slot-renderer,
+ytd-banner-promo-renderer,
+.ytd-promoted-sparkles-web-renderer {
+  display: none !important;
+}
+
+/* === HOMEPAGE (fallback if redirect fails) === */
+ytd-browse[page-subtype="home"] ytd-rich-grid-renderer {
+  display: none !important;
+}
+
+/* === MISC CLEANUPS === */
+
+/* Hide the premium upsell banner */
+ytd-statement-banner-renderer {
+  display: none !important;
+}
+
+/* Hide "Latest posts" from channels */
+ytd-backstage-post-thread-renderer {
+  display: none !important;
+}
