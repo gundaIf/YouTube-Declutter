@@ -1,41 +1,76 @@
-// Selectors for elements we want to hide
+const style = document.createElement("style");
+style.textContent = `
+  /* === SHORTS === */
+  ytd-rich-shelf-renderer[is-shorts],
+  ytd-reel-shelf-renderer,
+  ytd-shorts,
+  ytd-reel-item-renderer {
+    display: none !important;
+  }
+
+  /* Shorts in sidebar nav */
+  ytd-guide-entry-renderer a[title="Shorts"],
+  ytd-mini-guide-entry-renderer a[title="Shorts"] {
+    display: none !important;
+  }
+
+  /* Shorts in search results */
+  ytd-video-renderer:has([overlay-style="SHORTS"]) {
+    display: none !important;
+  }
+
+  /* Shorts chip/filter button */
+  yt-chip-cloud-chip-renderer:has([title="Shorts"]) {
+    display: none !important;
+  }
+
+  /* === ADS ONLY === */
+  #masthead-ad,
+  ytd-ad-slot-renderer,
+  ytd-banner-promo-renderer,
+  .ytd-promoted-sparkles-web-renderer {
+    display: none !important;
+  }
+
+  /* === HOMEPAGE RECOMMENDATIONS === */
+  /* Only hides recommendations on the homepage, not watch pages */
+  ytd-browse[page-subtype="home"] ytd-rich-grid-renderer {
+    display: none !important;
+  }
+
+  /* === MISC === */
+  ytd-statement-banner-renderer {
+    display: none !important;
+  }
+
+  ytd-backstage-post-thread-renderer {
+    display: none !important;
+  }
+`;
+document.documentElement.appendChild(style);
+
+// Selectors for elements we want to hide via JS
 const HIDE_SELECTORS = [
-  // Shorts shelf on homepage/subscriptions
+  // Shorts shelf
   "ytd-rich-shelf-renderer[is-shorts]",
   "ytd-reel-shelf-renderer",
   "ytd-shorts",
+  "ytd-reel-item-renderer",
 
-  // Shorts in sidebar navigation
+  // Shorts in sidebar nav
   "ytd-guide-entry-renderer a[title='Shorts']",
-  "#endpoint[title='Shorts']",
-
-  // Shorts chips/filters
-  "yt-chip-cloud-chip-renderer:has([title='Shorts'])",
 
   // Shorts in search results
   "ytd-video-renderer:has([overlay-style='SHORTS'])",
-  "ytd-reel-item-renderer",
 
-  // Recommended video sidebar (watch page)
-  "#secondary #related",
-
-  // Homepage recommendations (shows when not redirected)
-  "ytd-browse[page-subtype='home'] ytd-rich-grid-renderer",
-
-  // "People also watched" / end screen recommendations
-  "ytd-watch-next-secondary-results-renderer",
-
-  // Notification preview
-  "ytd-popup-container",
-
-  // Masthead ad
+  // Ads
   "#masthead-ad",
+  "ytd-ad-slot-renderer",
 
-  // Feed filters bar (optional - comment out if you want to keep it)
-  // "ytd-feed-filter-chip-bar-renderer",
+  // Homepage recommendations only
+  "ytd-browse[page-subtype='home'] ytd-rich-grid-renderer",
 ];
 
-// Apply hiding via JS as backup to CSS
 function hideElements() {
   HIDE_SELECTORS.forEach((selector) => {
     try {
@@ -48,7 +83,7 @@ function hideElements() {
   });
 }
 
-// YouTube is a SPA, so we need to watch for DOM changes
+// Watch for dynamic content since YouTube is a SPA
 const observer = new MutationObserver(() => {
   hideElements();
 });
@@ -58,5 +93,4 @@ observer.observe(document.documentElement, {
   subtree: true,
 });
 
-// Also run on initial load
 hideElements();
