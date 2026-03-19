@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Cleanup",
+  "version": "1.0",
+  "description": "Clean up YouTube - no shorts, go straight to subscriptions",
+  "permissions": [
+    "tabs",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "*://*.youtube.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "css": ["styles.css"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
