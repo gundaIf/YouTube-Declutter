@@ -1,10 +1,20 @@
 # YouTube Declutter
 
-<img src="icons/mark.svg" alt="YouTube Declutter mark" width="96" height="96" />
+<p align="center">
+  <img src="icons/logo.svg" alt="YouTube Declutter — hand-drawn play mark" width="168" height="168" />
+</p>
 
-**Use YouTube intentionally.**
+<p align="center"><strong>Use YouTube intentionally.</strong></p>
 
 A small Chrome extension that removes the casino floor and puts a reason at the door. No Home feed. No Shorts. No related-video rabbit hole. Watch what you came for, then stop.
+
+---
+
+## Mark
+
+Hand-drawn YouTube play badge. Marker red on paper white. Wobbly ink outline, white triangle, no wordmark.
+
+That is the toolbar icon, the Chrome extensions tile, and the popup lockup. Vector fallback: [`icons/mark.svg`](icons/mark.svg).
 
 ---
 
