@@ -10,14 +10,6 @@ A small Chrome extension that removes the casino floor and puts a reason at the 
 
 ---
 
-## Mark
-
-Hand-drawn YouTube play badge. Marker red on paper white. Wobbly ink outline, white triangle, no wordmark.
-
-That is the toolbar icon, the Chrome extensions tile, and the popup lockup. Vector fallback: [`icons/mark.svg`](icons/mark.svg).
-
----
-
 ## What 1.2 does
 
 1. **Intent session.** First visit in a browser session asks *what are you here for?* Optional 10 / 25 / 45 minute timer.
