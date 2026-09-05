@@ -1,0 +1,53 @@
+name: Package and release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Decode icons, wrap folder, zip
+        run: |
+          python3 - << 'PY'
+          import base64
+          from pathlib import Path
+          icons = Path("icons")
+          for b64_path in sorted(icons.glob("*.png.b64")):
+              dest = icons / b64_path.name.replace(".b64", "")
+              dest.write_bytes(base64.b64decode(b64_path.read_text()))
+              print("wrote", dest)
+          PY
+          VERSION=$(python3 -c "import json; print(json.load(open('manifest.json'))['version'])")
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          STAGE=$(mktemp -d)
+          mkdir -p "$STAGE/YouTube-Declutter/icons"
+          cp LICENSE README.md manifest.json background.js content.js styles.css popup.html popup.css popup.js "$STAGE/YouTube-Declutter/"
+          cp icons/mark.svg icons/icon16.png icons/icon48.png icons/icon128.png icons/icon128-off.png "$STAGE/YouTube-Declutter/icons/"
+          mkdir -p dist
+          (cd "$STAGE" && zip -r "$GITHUB_WORKSPACE/dist/YouTube-Declutter-v${VERSION}.zip" YouTube-Declutter)
+          unzip -l "dist/YouTube-Declutter-v${VERSION}.zip"
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: YouTube Declutter v${{ env.VERSION }}
+          files: dist/YouTube-Declutter-v${{ env.VERSION }}.zip
+          fail_on_unmatched_files: true
+          make_latest: true
+          body: |
+            Unzip this file, then in Chrome:
+
+            1. Open chrome://extensions
+            2. Turn on Developer mode
+            3. Load unpacked → select the YouTube-Declutter folder (the one that contains manifest.json)
+
+            Do not load the .zip itself. Do not use Source code (zip).
