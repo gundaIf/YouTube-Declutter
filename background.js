@@ -85,7 +85,7 @@ async function syncAction() {
   await chrome.action.setBadgeBackgroundColor({ color: "#8a1f1f" });
   await chrome.action.setBadgeText({ text: enabled ? "" : "OFF" });
   await chrome.action.setTitle({
-    title: enabled ? "YouTube Declutter — on" : "YouTube Declutter — off"
+    title: enabled ? "YouTube Declutter: on" : "YouTube Declutter: off"
   });
 }
 
