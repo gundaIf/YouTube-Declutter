@@ -32,16 +32,20 @@ This does **not** block in-player video ads. It only hides page promo units.
 
 ---
 
-## Install (Load unpacked)
+## Install in Chrome
 
-1. Download the latest source ZIP from [Releases](https://github.com/gundaIf/YouTube-Declutter/releases), or clone this repo.
-2. Unzip if needed. You want the folder that contains `manifest.json`.
+Chrome will not load a `.zip`. Unzip it first.
+
+1. Download **YouTube-Declutter-v1.2.0.zip** from [Releases](https://github.com/gundaIf/YouTube-Declutter/releases) — the attached file, not “Source code (zip)”.
+2. Unzip it. You should get one folder named `YouTube-Declutter` that contains `manifest.json`.
 3. Open `chrome://extensions`.
-4. Enable **Developer mode**.
-5. **Load unpacked** → select that folder.
-6. Open YouTube. Choose why you are there.
+4. Turn on **Developer mode** (top right).
+5. Click **Load unpacked** → select that `YouTube-Declutter` folder.
+6. Pin the extension. Open YouTube. Say why you are there.
 
-Reload the extension after updates (`chrome://extensions` → refresh icon on the card).
+Reload after updates: `chrome://extensions` → the refresh icon on the card.
+
+Do not drag the zip onto Chrome. Do not use “Pack extension” unless you know you need a `.crx`.
 
 ---
 
