@@ -14,16 +14,71 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Decode icons, wrap folder, zip
+      - name: Build PNG icons, wrap folder, zip
         run: |
           python3 - << 'PY'
-          import base64
+          import struct, zlib
           from pathlib import Path
+
+          def png(w, h, rgb_rows):
+              def chunk(tag, data):
+                  crc = zlib.crc32(tag + data) & 0xffffffff
+                  return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", crc)
+              raw = b"".join(b"\x00" + bytes(row) for row in rgb_rows)
+              return (
+                  b"\x89PNG\r\n\x1a\n"
+                  + chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 2, 0, 0, 0))
+                  + chunk(b"IDAT", zlib.compress(raw, 9))
+                  + chunk(b"IEND", b"")
+              )
+
+          def draw(size, gray=False):
+              red = (180, 180, 180) if gray else (255, 0, 0)
+              white = (255, 255, 255)
+              rows = []
+              pad = max(2, size // 10)
+              rx0, ry0 = pad, int(size * 0.28)
+              rx1, ry1 = size - pad, size - int(size * 0.28)
+              rad = max(3, size // 8)
+              tx0 = int(size * 0.40)
+              tx1 = int(size * 0.66)
+              ty0 = int(size * 0.38)
+              ty1 = int(size * 0.62)
+              for y in range(size):
+                  row = []
+                  for x in range(size):
+                      color = white
+                      inside = (rx0 + rad <= x <= rx1 - rad and ry0 <= y <= ry1) or (
+                          ry0 + rad <= y <= ry1 - rad and rx0 <= x <= rx1
+                      )
+                      corners = (
+                          (rx0 + rad, ry0 + rad),
+                          (rx1 - rad, ry0 + rad),
+                          (rx0 + rad, ry1 - rad),
+                          (rx1 - rad, ry1 - rad),
+                      )
+                      for cx, cy in corners:
+                          if (x - cx) ** 2 + (y - cy) ** 2 <= rad * rad:
+                              inside = True
+                      if inside:
+                          color = red
+                      if ty0 <= y <= ty1 and tx0 <= x <= tx1:
+                          t = (y - ty0) / max(1, ty1 - ty0)
+                          left = tx0
+                          right = tx0 + int((tx1 - tx0) * (1 - abs(2 * t - 1)))
+                          if left <= x <= right:
+                              color = white
+                      row.extend(color)
+                  rows.append(row)
+              return png(size, size, rows)
+
           icons = Path("icons")
-          for b64_path in sorted(icons.glob("*.png.b64")):
-              dest = icons / b64_path.name.replace(".b64", "")
-              dest.write_bytes(base64.b64decode(b64_path.read_text()))
-              print("wrote", dest)
+          icons.mkdir(exist_ok=True)
+          (icons / "icon16.png").write_bytes(draw(16))
+          (icons / "icon48.png").write_bytes(draw(48))
+          (icons / "icon128.png").write_bytes(draw(128))
+          (icons / "icon128-off.png").write_bytes(draw(128, gray=True))
+          print("icons ready")
           PY
           VERSION=$(python3 -c "import json; print(json.load(open('manifest.json'))['version'])")
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
