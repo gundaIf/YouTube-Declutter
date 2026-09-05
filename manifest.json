@@ -1,8 +1,13 @@
 {
   "manifest_version": 3,
   "name": "YouTube Declutter",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Use YouTube intentionally. Never Home. No Shorts. Watch with a reason, then stop.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": [
     "storage",
     "tabs",
@@ -14,7 +19,12 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "YouTube Declutter"
+    "default_title": "YouTube Declutter",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
   },
   "background": {
     "service_worker": "background.js"
