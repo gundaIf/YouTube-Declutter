@@ -16,9 +16,20 @@ body {
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 10px;
   margin-bottom: 16px;
 }
+
+.mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  flex: 0 0 36px;
+  object-fit: cover;
+  background: #0e0e0e;
+}
+
+.titles { flex: 1; min-width: 0; }
 
 .kicker {
   margin: 0 0 2px;

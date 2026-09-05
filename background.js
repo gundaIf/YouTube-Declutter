@@ -74,32 +74,13 @@ async function maybeRedirect(tabId, url) {
   }
 }
 
-function paintIcon(enabled) {
-  const size = 32;
-  const canvas = new OffscreenCanvas(size, size);
-  const ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, size, size);
-  ctx.fillStyle = enabled ? "#141414" : "#3a3a3a";
-  ctx.beginPath();
-  if (ctx.roundRect) ctx.roundRect(2, 2, 28, 28, 7);
-  else ctx.rect(2, 2, 28, 28);
-  ctx.fill();
-  ctx.fillStyle = enabled ? "#f2ead8" : "#8a8a8a";
-  ctx.beginPath();
-  ctx.moveTo(12, 9);
-  ctx.lineTo(12, 23);
-  ctx.lineTo(24, 16);
-  ctx.closePath();
-  ctx.fill();
-  return ctx.getImageData(0, 0, size, size);
-}
-
 async function syncAction() {
   const { enabled } = await getSettings();
+  const icon = enabled ? "icons/icon128.png" : "icons/icon128-off.png";
   try {
-    await chrome.action.setIcon({ imageData: paintIcon(enabled) });
+    await chrome.action.setIcon({ path: { 16: "icons/icon16.png", 48: "icons/icon48.png", 128: icon } });
   } catch {
-    /* OffscreenCanvas unavailable — ignore */
+    /* icons missing in some load paths */
   }
   await chrome.action.setBadgeBackgroundColor({ color: "#8a1f1f" });
   await chrome.action.setBadgeText({ text: enabled ? "" : "OFF" });
