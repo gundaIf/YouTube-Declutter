@@ -8,7 +8,7 @@ A small Chrome extension that removes the casino floor and puts a reason at the 
 
 ---
 
-## What 1.1 does
+## What 1.2 does
 
 1. **Intent session** — First visit in a browser session asks *what are you here for?* Optional 10 / 25 / 45 minute timer.
 2. **Never-Home landing** — Logo and Home go to Subscriptions, Search, or Watch Later. The algorithm grid is not a destination.
