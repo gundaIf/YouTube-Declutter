@@ -1,60 +1,77 @@
-/* === SHORTS === */
-ytd-rich-shelf-renderer[is-shorts],
-ytd-reel-shelf-renderer,
-ytd-shorts,
-ytd-reel-item-renderer {
+/* Boot splash — lifted as soon as content.js applies settings */
+html.ytdc-booting {
+  background: #0e0e0e !important;
+}
+html.ytdc-booting body {
+  opacity: 0 !important;
+}
+
+/* ===== Hide layer (only while enabled) ===== */
+
+html.ytdc-on ytd-rich-shelf-renderer[is-shorts],
+html.ytdc-on ytd-reel-shelf-renderer,
+html.ytdc-on ytd-reel-item-renderer,
+html.ytdc-on ytm-shorts-lockup-view-model,
+html.ytdc-on ytd-rich-item-renderer:has(a[href^="/shorts/"]),
+html.ytdc-on ytd-video-renderer:has(a[href^="/shorts/"]),
+html.ytdc-on ytd-grid-video-renderer:has(a[href^="/shorts/"]),
+html.ytdc-on ytd-compact-video-renderer:has(a[href^="/shorts/"]),
+html.ytdc-on grid-shelf-view-model:has(a[href^="/shorts/"]),
+html.ytdc-on ytd-guide-entry-renderer:has(a[href="/shorts"]),
+html.ytdc-on ytd-mini-guide-entry-renderer:has(a[href="/shorts"]),
+html.ytdc-on ytd-guide-entry-renderer:has(a[href^="/shorts"]),
+html.ytdc-on ytd-mini-guide-entry-renderer:has(a[href^="/shorts"]),
+html.ytdc-on yt-chip-cloud-chip-renderer:has(a[href*="shorts"]) {
   display: none !important;
 }
 
-/* Shorts in sidebar nav */
-ytd-guide-entry-renderer a[title="Shorts"],
-ytd-mini-guide-entry-renderer a[title="Shorts"] {
+html.ytdc-on ytd-guide-entry-renderer:has(a[href="/playables"]),
+html.ytdc-on ytd-mini-guide-entry-renderer:has(a[href="/playables"]),
+html.ytdc-on ytd-rich-section-renderer:has(a[href*="playables"]),
+html.ytdc-on ytd-guide-entry-renderer:has(a[href="/gaming"]),
+html.ytdc-on ytd-guide-entry-renderer:has(a[href="/feed/explore"]),
+html.ytdc-on ytd-guide-entry-renderer:has(a[href="/feed/trending"]) {
   display: none !important;
 }
 
-/* Shorts in search results */
-ytd-video-renderer:has([overlay-style="SHORTS"]) {
+html.ytdc-on ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
+html.ytdc-on ytd-browse[page-subtype="home"] ytd-rich-section-renderer {
   display: none !important;
 }
 
-/* Shorts shelf label */
-yt-chip-cloud-chip-renderer:has([title="Shorts"]) {
+html.ytdc-on #masthead-ad,
+html.ytdc-on ytd-ad-slot-renderer,
+html.ytdc-on ytd-banner-promo-renderer,
+html.ytdc-on ytd-statement-banner-renderer,
+html.ytdc-on .ytd-promoted-sparkles-web-renderer,
+html.ytdc-on ytd-promoted-sparkles-web-renderer {
   display: none !important;
 }
 
-/* === RECOMMENDATIONS === */
-
-/* Right sidebar on watch page */
-#secondary #related {
+/* Focus watch page */
+html.ytdc-on #related,
+html.ytdc-on ytd-watch-next-secondary-results-renderer,
+html.ytdc-on #secondary #related,
+html.ytdc-on ytd-merch-shelf-renderer,
+html.ytdc-on #merch-shelf,
+html.ytdc-on .ytp-ce-element,
+html.ytdc-on .ytp-endscreen-content,
+html.ytdc-on .ytp-fullscreen-grid,
+html.ytdc-on .ytp-pause-overlay,
+html.ytdc-on ytd-player-legacy-desktop-watch-analytics-renderer {
   display: none !important;
 }
 
-/* Autoplay next video */
-ytd-watch-next-secondary-results-renderer {
+html.ytdc-on.ytdc-hide-comments #comments,
+html.ytdc-on.ytdc-hide-comments ytd-comments,
+html.ytdc-on.ytdc-hide-comments #chat,
+html.ytdc-on.ytdc-hide-comments #chat-container,
+html.ytdc-on.ytdc-hide-comments ytd-live-chat-frame,
+html.ytdc-on.ytdc-hide-comments #panels-full-bleed-container {
   display: none !important;
 }
 
-/* === ADS === */
-#masthead-ad,
-ytd-ad-slot-renderer,
-ytd-banner-promo-renderer,
-.ytd-promoted-sparkles-web-renderer {
-  display: none !important;
-}
-
-/* === HOMEPAGE (fallback if redirect fails) === */
-ytd-browse[page-subtype="home"] ytd-rich-grid-renderer {
-  display: none !important;
-}
-
-/* === MISC CLEANUPS === */
-
-/* Hide the premium upsell banner */
-ytd-statement-banner-renderer {
-  display: none !important;
-}
-
-/* Hide "Latest posts" from channels */
-ytd-backstage-post-thread-renderer {
+html.ytdc-on.ytdc-search-home ytd-browse[page-subtype="home"] #contents,
+html.ytdc-on.ytdc-search-home ytd-two-column-browse-results-renderer {
   display: none !important;
 }
