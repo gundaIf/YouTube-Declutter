@@ -1,7 +1,7 @@
 # YouTube Declutter
 
 <p align="center">
-  <img src="icons/logo.svg" alt="YouTube Declutter — hand-drawn play mark" width="168" height="168" />
+  <img src="icons/mark.svg" alt="YouTube Declutter — hand-drawn play mark" width="168" height="168" />
 </p>
 
 <p align="center"><strong>Use YouTube intentionally.</strong></p>
