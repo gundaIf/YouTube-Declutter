@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YouTube Declutter</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <p class="kicker">Use YouTube intentionally</p>
+      <h1>Declutter</h1>
+    </div>
+    <label class="switch" title="Enable or disable the extension">
+      <input type="checkbox" id="enabled" />
+      <span></span>
+    </label>
+  </header>
+
+  <section>
+    <p class="label">When you open YouTube</p>
+    <label class="check">
+      <input type="checkbox" id="askIntent" />
+      Ask what I am here for
+    </label>
+  </section>
+
+  <section>
+    <p class="label">Default landing</p>
+    <div class="seg" id="landing">
+      <button type="button" data-landing="subscriptions">Subscriptions</button>
+      <button type="button" data-landing="search">Search</button>
+      <button type="button" data-landing="watchlater">Watch Later</button>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">Session timer</p>
+    <div class="seg" id="timer">
+      <button type="button" data-timer="0">Off</button>
+      <button type="button" data-timer="10">10m</button>
+      <button type="button" data-timer="25">25m</button>
+      <button type="button" data-timer="45">45m</button>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">Watch page</p>
+    <label class="check">
+      <input type="checkbox" id="stopAtEnd" />
+      Stop when a video ends
+    </label>
+    <label class="check">
+      <input type="checkbox" id="showComments" />
+      Show comments
+    </label>
+  </section>
+
+  <footer>
+    Shorts, Home, related, and autoplay stay off while this is on.
+  </footer>
+  <script src="popup.js"></script>
+</body>
+</html>

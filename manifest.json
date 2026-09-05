@@ -1,21 +1,30 @@
 {
   "manifest_version": 3,
-  "name": "YouTube Cleanup",
-  "version": "1.0",
-  "description": "Clean up YouTube - no shorts, go straight to subscriptions",
+  "name": "YouTube Declutter",
+  "version": "1.1.0",
+  "description": "Use YouTube intentionally. Never Home. No Shorts. Watch with a reason, then stop.",
   "permissions": [
+    "storage",
     "tabs",
     "webNavigation"
   ],
   "host_permissions": [
-    "*://*.youtube.com/*"
+    "*://*.youtube.com/*",
+    "*://youtube.com/*"
   ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "YouTube Declutter"
+  },
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*"],
+      "matches": [
+        "*://*.youtube.com/*",
+        "*://youtube.com/*"
+      ],
       "css": ["styles.css"],
       "js": ["content.js"],
       "run_at": "document_start"

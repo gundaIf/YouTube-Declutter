@@ -1,0 +1,118 @@
+:root {
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  width: 320px;
+  padding: 16px 16px 14px;
+  background: #141414;
+  color: #f4f0e6;
+  font: 13px/1.4 "YouTube Sans", "Roboto", system-ui, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.kicker {
+  margin: 0 0 2px;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #b7aa8e;
+}
+
+h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -.02em;
+}
+
+section { margin-bottom: 14px; }
+
+.label {
+  margin: 0 0 6px;
+  color: #8f8f8f;
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+  color: #e8e4d8;
+}
+
+.check input { accent-color: #f2ead8; }
+
+.seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
+}
+
+#timer.seg { grid-template-columns: repeat(4, 1fr); }
+
+.seg button {
+  border: 1px solid #2c2c2c;
+  background: #1c1c1c;
+  color: #d8d4ca;
+  border-radius: 8px;
+  padding: 7px 6px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.seg button.on {
+  background: #f2ead8;
+  color: #161616;
+  border-color: #f2ead8;
+  font-weight: 600;
+}
+
+.switch {
+  position: relative;
+  width: 42px;
+  height: 24px;
+}
+
+.switch input { display: none; }
+
+.switch span {
+  position: absolute;
+  inset: 0;
+  background: #3a3a3a;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.switch span::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #eee;
+  border-radius: 50%;
+  transition: transform .16s ease;
+}
+
+.switch input:checked + span { background: #c4b48a; }
+.switch input:checked + span::after { transform: translateX(18px); }
+
+footer {
+  color: #7a7a7a;
+  font-size: 11px;
+  line-height: 1.45;
+}
