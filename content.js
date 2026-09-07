@@ -108,7 +108,106 @@
       (document.documentElement || document.body).appendChild(host);
     }
     shadow = host.shadowRoot || host.attachShadow({ mode: "open" });
-    shadow.innerHTML = "__UI__";
+    shadow.innerHTML = `
+      <style>
+        :host { all: initial; }
+        * { box-sizing: border-box; font-family: "YouTube Sans", "Roboto", system-ui, sans-serif; }
+        .layer {
+          position: fixed; inset: 0; z-index: 2147483646;
+          display: none; align-items: center; justify-content: center;
+          background: rgba(8,8,8,.78);
+          backdrop-filter: blur(10px);
+        }
+        .layer.show { display: flex; }
+        .card {
+          width: min(440px, calc(100vw - 32px));
+          background: #161616;
+          color: #f4f0e6;
+          border: 1px solid #2a2a2a;
+          border-radius: 18px;
+          padding: 28px 26px 22px;
+          box-shadow: 0 24px 80px rgba(0,0,0,.45);
+        }
+        .kicker {
+          font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+          color: #b7aa8e; margin: 0 0 8px;
+        }
+        h1 { font-size: 22px; font-weight: 600; margin: 0 0 6px; letter-spacing: -.02em; }
+        .sub { color: #9a9a9a; font-size: 13px; line-height: 1.45; margin: 0 0 20px; }
+        .choices { display: grid; gap: 8px; }
+        button {
+          appearance: none; border: 1px solid #2f2f2f; background: #1e1e1e;
+          color: #f4f0e6; border-radius: 12px; padding: 12px 14px;
+          font-size: 14px; text-align: left; cursor: pointer;
+        }
+        button:hover { border-color: #b7aa8e; background: #242424; }
+        button.primary {
+          background: #f2ead8; color: #161616; border-color: #f2ead8; font-weight: 600;
+          text-align: center;
+        }
+        button.primary:hover { filter: brightness(1.04); }
+        .row { display: flex; gap: 8px; margin-top: 8px; }
+        .row button { flex: 1; text-align: center; }
+        .ghost { background: transparent; }
+        .timer {
+          position: fixed; top: 12px; right: 12px; z-index: 2147483645;
+          display: none; align-items: center; gap: 8px;
+          background: #161616; color: #f2ead8; border: 1px solid #2a2a2a;
+          border-radius: 999px; padding: 6px 12px; font-size: 12px;
+        }
+        .timer.show { display: flex; }
+        .timer.warn { color: #f0c4a8; border-color: #5a3a28; }
+      </style>
+      <div class="layer" id="intent" role="dialog" aria-label="Choose why you opened YouTube">
+        <div class="card">
+          <p class="kicker">YouTube Declutter</p>
+          <h1>What are you here for?</h1>
+          <p class="sub">Pick a reason. Home is gone. Shorts are gone. When you are done, leave.</p>
+          <div class="choices">
+            <button data-intent="specific">Watch something specific</button>
+            <button data-intent="subscriptions">Browse subscriptions</button>
+            <button data-intent="search">Search</button>
+            <button data-intent="watchlater">Watch Later</button>
+          </div>
+        </div>
+      </div>
+      <div class="layer" id="ended" role="dialog" aria-label="Video finished">
+        <div class="card">
+          <p class="kicker">Video finished</p>
+          <h1>You are done with this one.</h1>
+          <p class="sub">Do not slide into the next recommendation. Choose on purpose.</p>
+          <div class="choices">
+            <button class="primary" data-end="done">Done</button>
+            <div class="row">
+              <button data-end="channel">Another from this channel</button>
+              <button data-end="intent">Back to intent</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layer" id="timesup" role="dialog" aria-label="Session timer ended">
+        <div class="card">
+          <p class="kicker">Time is up</p>
+          <h1>This session is over.</h1>
+          <p class="sub">You set a limit so YouTube would not set one for you.</p>
+          <div class="choices">
+            <button class="primary" data-time="done">Done</button>
+            <button data-time="more">+10 minutes</button>
+          </div>
+        </div>
+      </div>
+      <div class="timer" id="timer" aria-live="polite"></div>
+    `;
+
+    shadow.querySelectorAll("[data-intent]").forEach((btn) => {
+      btn.addEventListener("click", () => chooseIntent(btn.getAttribute("data-intent")));
+    });
+    shadow.querySelectorAll("[data-end]").forEach((btn) => {
+      btn.addEventListener("click", () => handleEnd(btn.getAttribute("data-end")));
+    });
+    shadow.querySelectorAll("[data-time]").forEach((btn) => {
+      btn.addEventListener("click", () => handleTimer(btn.getAttribute("data-time")));
+    });
   }
 
   function showLayer(id, on) {
@@ -165,7 +264,11 @@
     const input = document.querySelector("input#search, input[name='search_query']");
     if (!input) return;
     input.focus();
-    try { input.click(); } catch { /* ignore */ }
+    try {
+      input.click();
+    } catch {
+      /* ignore */
+    }
   }
 
   function maybeShowIntent() {
@@ -179,9 +282,10 @@
         persistSession({
           intentLocked: true,
           intent: settings.landing,
-          timerEndsAt: settings.timerMinutes > 0 && !session.timerEndsAt
-            ? Date.now() + settings.timerMinutes * 60 * 1000
-            : session.timerEndsAt
+          timerEndsAt:
+            settings.timerMinutes > 0 && !session.timerEndsAt
+              ? Date.now() + settings.timerMinutes * 60 * 1000
+              : session.timerEndsAt
         });
       }
       return;
@@ -196,15 +300,21 @@
   function disableAutoplay() {
     if (!isOn() || !settings.stopAtEnd) return;
     const btn = document.querySelector(".ytp-autonav-toggle-button");
-    if (btn && btn.getAttribute("aria-checked") === "true") btn.click();
-    document.querySelectorAll("ytd-compact-autoplay-renderer button[aria-pressed='true']").forEach((el) => el.click());
+    if (btn && btn.getAttribute("aria-checked") === "true") {
+      btn.click();
+    }
+    document.querySelectorAll("ytd-compact-autoplay-renderer button[aria-pressed='true']").forEach((el) => {
+      el.click();
+    });
   }
 
   function bindVideo() {
     if (!isOn() || !settings.stopAtEnd || !isWatchPage()) return;
     const video = document.querySelector("#movie_player video, ytd-player video, video.html5-main-video");
     if (!video || video === videoBound) return;
-    if (videoBound) videoBound.removeEventListener("ended", onVideoEnded);
+    if (videoBound) {
+      videoBound.removeEventListener("ended", onVideoEnded);
+    }
     videoBound = video;
     video.addEventListener("ended", onVideoEnded);
     disableAutoplay();
@@ -217,7 +327,9 @@
   }
 
   function channelVideosUrl() {
-    const owner = document.querySelector("ytd-video-owner-renderer a[href^='/@'], ytd-video-owner-renderer a[href^='/channel/'], ytd-video-owner-renderer a[href^='/c/']");
+    const owner = document.querySelector(
+      "ytd-video-owner-renderer a[href^='/@'], ytd-video-owner-renderer a[href^='/channel/'], ytd-video-owner-renderer a[href^='/c/']"
+    );
     if (!owner) return null;
     const href = owner.getAttribute("href");
     if (!href) return null;
@@ -233,7 +345,8 @@
     }
     if (action === "channel") {
       const url = channelVideosUrl();
-      location.assign(url || landingUrl(activeIntent()));
+      if (url) location.assign(url);
+      else location.assign(landingUrl(activeIntent()));
       return;
     }
     if (action === "intent") {
@@ -265,7 +378,6 @@
     ensureUi();
     if (document.documentElement.classList.contains("ytdc-on") !== isOn()) applyRoot();
     const el = shadow.getElementById("timer");
-    if (!el) return;
     if (!isOn() || !session.timerEndsAt) {
       el.classList.remove("show");
       return;
@@ -289,7 +401,11 @@
     if (!a) return;
     const href = a.getAttribute("href") || "";
     const isLogo = !!(a.closest("ytd-topbar-logo-renderer, #logo") || a.id === "logo");
-    const isHome = href === "/" || href === "https://www.youtube.com/" || href === "https://youtube.com/" || a.getAttribute("title") === "Home";
+    const isHome =
+      href === "/" ||
+      href === "https://www.youtube.com/" ||
+      href === "https://youtube.com/" ||
+      a.getAttribute("title") === "Home";
     const inGuide = !!a.closest("ytd-guide-entry-renderer, ytd-mini-guide-entry-renderer");
     if (!isLogo && !(isHome && inGuide)) return;
     event.preventDefault();
@@ -303,7 +419,8 @@
     if (!location.pathname.startsWith("/shorts/")) return;
     const id = location.pathname.split("/")[2];
     if (!id) return;
-    location.replace(`${location.origin}/watch?v=${id}${location.search || ""}`);
+    const dest = `${location.origin}/watch?v=${id}${location.search || ""}`;
+    location.replace(dest);
   }
 
   function onNavigated() {
@@ -333,6 +450,15 @@
   document.addEventListener("click", rewriteHomeClicks, true);
 
   chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === "session") {
+      for (const key of ["intentLocked", "intent", "timerEndsAt"]) {
+        if (changes[key]) session[key] = changes[key].newValue;
+      }
+      applyRoot();
+      maybeShowIntent();
+      tickTimer();
+      return;
+    }
     if (area !== "local") return;
     let changed = false;
     for (const key of Object.keys(DEFAULTS)) {
