@@ -165,6 +165,14 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     chrome.storage.session.set(message.payload || {}).then(() => sendResponse({ ok: true }));
     return true;
   }
+  if (message?.type === "ytdc:sync") {
+    getSettings().then(async (settings) => {
+      await scheduleResume(settings.pausedUntil);
+      await syncAction();
+      sendResponse({ ok: true, on: isOn(settings) });
+    });
+    return true;
+  }
   return false;
 });
 
