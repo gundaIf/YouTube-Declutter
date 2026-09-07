@@ -10,13 +10,26 @@
     <img class="mark" src="icons/mark.svg" width="36" height="36" alt="" />
     <div class="titles">
       <p class="kicker">Use YouTube intentionally</p>
-      <h1>Declutter</h1>
+      <h1>Dashboard</h1>
     </div>
-    <label class="switch" title="Enable or disable the extension">
+    <label class="switch" title="Turn the extension on or off">
       <input type="checkbox" id="enabled" />
       <span></span>
     </label>
   </header>
+
+  <p class="status" id="status">On</p>
+
+  <section>
+    <p class="label">Pause for a bit</p>
+    <div class="seg four" id="pause">
+      <button type="button" data-pause="5">5m</button>
+      <button type="button" data-pause="15">15m</button>
+      <button type="button" data-pause="30">30m</button>
+      <button type="button" data-pause="60">1h</button>
+    </div>
+    <button type="button" class="resume" id="resume" hidden>Resume now</button>
+  </section>
 
   <section>
     <p class="label">When you open YouTube</p>
@@ -37,7 +50,7 @@
 
   <section>
     <p class="label">Session timer</p>
-    <div class="seg" id="timer">
+    <div class="seg four" id="timer">
       <button type="button" data-timer="0">Off</button>
       <button type="button" data-timer="10">10m</button>
       <button type="button" data-timer="25">25m</button>
@@ -46,10 +59,14 @@
   </section>
 
   <section>
-    <p class="label">Watch page</p>
+    <p class="label">Hide</p>
     <label class="check">
-      <input type="checkbox" id="stopAtEnd" />
-      Stop when a video ends
+      <input type="checkbox" id="hideShorts" />
+      Shorts
+    </label>
+    <label class="check">
+      <input type="checkbox" id="hideRelated" />
+      Related videos
     </label>
     <label class="check">
       <input type="checkbox" id="showComments" />
@@ -57,8 +74,16 @@
     </label>
   </section>
 
+  <section>
+    <p class="label">Watch page</p>
+    <label class="check">
+      <input type="checkbox" id="stopAtEnd" />
+      Stop when a video ends
+    </label>
+  </section>
+
   <footer>
-    Shorts, Home, related, and autoplay stay off while this is on.
+    Pause turns everything off for a while. The switch turns it off until you flip it back.
   </footer>
   <script src="popup.js"></script>
 </body>
