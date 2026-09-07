@@ -8,20 +8,20 @@ html.ytdc-booting body {
 
 /* ===== Hide layer (only while enabled) ===== */
 
-html.ytdc-on ytd-rich-shelf-renderer[is-shorts],
-html.ytdc-on ytd-reel-shelf-renderer,
-html.ytdc-on ytd-reel-item-renderer,
-html.ytdc-on ytm-shorts-lockup-view-model,
-html.ytdc-on ytd-rich-item-renderer:has(a[href^="/shorts/"]),
-html.ytdc-on ytd-video-renderer:has(a[href^="/shorts/"]),
-html.ytdc-on ytd-grid-video-renderer:has(a[href^="/shorts/"]),
-html.ytdc-on ytd-compact-video-renderer:has(a[href^="/shorts/"]),
-html.ytdc-on grid-shelf-view-model:has(a[href^="/shorts/"]),
-html.ytdc-on ytd-guide-entry-renderer:has(a[href="/shorts"]),
-html.ytdc-on ytd-mini-guide-entry-renderer:has(a[href="/shorts"]),
-html.ytdc-on ytd-guide-entry-renderer:has(a[href^="/shorts"]),
-html.ytdc-on ytd-mini-guide-entry-renderer:has(a[href^="/shorts"]),
-html.ytdc-on yt-chip-cloud-chip-renderer:has(a[href*="shorts"]) {
+html.ytdc-on.ytdc-hide-shorts ytd-rich-shelf-renderer[is-shorts],
+html.ytdc-on.ytdc-hide-shorts ytd-reel-shelf-renderer,
+html.ytdc-on.ytdc-hide-shorts ytd-reel-item-renderer,
+html.ytdc-on.ytdc-hide-shorts ytm-shorts-lockup-view-model,
+html.ytdc-on.ytdc-hide-shorts ytd-rich-item-renderer:has(a[href^="/shorts/"]),
+html.ytdc-on.ytdc-hide-shorts ytd-video-renderer:has(a[href^="/shorts/"]),
+html.ytdc-on.ytdc-hide-shorts ytd-grid-video-renderer:has(a[href^="/shorts/"]),
+html.ytdc-on.ytdc-hide-shorts ytd-compact-video-renderer:has(a[href^="/shorts/"]),
+html.ytdc-on.ytdc-hide-shorts grid-shelf-view-model:has(a[href^="/shorts/"]),
+html.ytdc-on.ytdc-hide-shorts ytd-guide-entry-renderer:has(a[href="/shorts"]),
+html.ytdc-on.ytdc-hide-shorts ytd-mini-guide-entry-renderer:has(a[href="/shorts"]),
+html.ytdc-on.ytdc-hide-shorts ytd-guide-entry-renderer:has(a[href^="/shorts"]),
+html.ytdc-on.ytdc-hide-shorts ytd-mini-guide-entry-renderer:has(a[href^="/shorts"]),
+html.ytdc-on.ytdc-hide-shorts yt-chip-cloud-chip-renderer:has(a[href*="shorts"]) {
   display: none !important;
 }
 
@@ -49,16 +49,16 @@ html.ytdc-on ytd-promoted-sparkles-web-renderer {
 }
 
 /* Focus watch page */
-html.ytdc-on #related,
-html.ytdc-on ytd-watch-next-secondary-results-renderer,
-html.ytdc-on #secondary #related,
-html.ytdc-on ytd-merch-shelf-renderer,
-html.ytdc-on #merch-shelf,
-html.ytdc-on .ytp-ce-element,
-html.ytdc-on .ytp-endscreen-content,
-html.ytdc-on .ytp-fullscreen-grid,
-html.ytdc-on .ytp-pause-overlay,
-html.ytdc-on ytd-player-legacy-desktop-watch-analytics-renderer {
+html.ytdc-on.ytdc-hide-related #related,
+html.ytdc-on.ytdc-hide-related ytd-watch-next-secondary-results-renderer,
+html.ytdc-on.ytdc-hide-related #secondary #related,
+html.ytdc-on.ytdc-hide-related ytd-merch-shelf-renderer,
+html.ytdc-on.ytdc-hide-related #merch-shelf,
+html.ytdc-on.ytdc-hide-related .ytp-ce-element,
+html.ytdc-on.ytdc-hide-related .ytp-endscreen-content,
+html.ytdc-on.ytdc-hide-related .ytp-fullscreen-grid,
+html.ytdc-on.ytdc-hide-related .ytp-pause-overlay,
+html.ytdc-on.ytdc-hide-related ytd-player-legacy-desktop-watch-analytics-renderer {
   display: none !important;
 }
 

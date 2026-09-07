@@ -6,7 +6,7 @@
 
 body {
   margin: 0;
-  width: 320px;
+  width: 340px;
   padding: 16px 16px 14px;
   background: #141414;
   color: #f4f0e6;
@@ -47,6 +47,43 @@ h1 {
   letter-spacing: -.02em;
 }
 
+.status {
+  margin: -6px 0 14px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  letter-spacing: .02em;
+  background: #1c1c1c;
+  color: #cfc8b8;
+}
+
+.status[data-state="on"] {
+  background: #24301c;
+  color: #d7e8c4;
+}
+
+.status[data-state="paused"] {
+  background: #322414;
+  color: #f0d2a8;
+}
+
+.status[data-state="off"] {
+  background: #2a1818;
+  color: #f0c4c4;
+}
+
+.resume {
+  margin-top: 6px;
+  width: 100%;
+  border: 1px solid #3a3a3a;
+  background: #1c1c1c;
+  color: #f4f0e6;
+  border-radius: 8px;
+  padding: 7px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
 section { margin-bottom: 14px; }
 
 .label {
@@ -73,6 +110,7 @@ section { margin-bottom: 14px; }
   gap: 4px;
 }
 
+.seg.four,
 #timer.seg { grid-template-columns: repeat(4, 1fr); }
 
 .seg button {
