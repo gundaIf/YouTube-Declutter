@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "YouTube Declutter",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Use YouTube intentionally. Never Home. No Shorts. Watch with a reason, then stop.",
   "icons": {
     "16": "icons/icon16.png",
@@ -11,7 +11,8 @@
   "permissions": [
     "storage",
     "tabs",
-    "webNavigation"
+    "webNavigation",
+    "alarms"
   ],
   "host_permissions": [
     "*://*.youtube.com/*",
