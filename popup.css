@@ -161,6 +161,33 @@ section { margin-bottom: 14px; }
 .switch input:checked + span { background: #c4b48a; }
 .switch input:checked + span::after { transform: translateX(18px); }
 
+.session {
+  margin: -8px 0 14px;
+  color: #b7aa8e;
+  font-size: 12px;
+}
+
+.ghost {
+  margin-top: 6px;
+  width: 100%;
+  border: 1px solid #2c2c2c;
+  background: transparent;
+  color: #d8d4ca;
+  border-radius: 8px;
+  padding: 7px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.ghost:hover {
+  border-color: #4a4a4a;
+}
+
+body.is-off section,
+body.is-paused section:not(:first-of-type) {
+  opacity: 0.55;
+}
+
 footer {
   color: #7a7a7a;
   font-size: 11px;
