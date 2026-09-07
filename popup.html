@@ -19,6 +19,7 @@
   </header>
 
   <p class="status" id="status">On</p>
+  <p class="session" id="sessionLine" hidden></p>
 
   <section>
     <p class="label">Pause for a bit</p>
@@ -37,6 +38,7 @@
       <input type="checkbox" id="askIntent" />
       Ask what I am here for
     </label>
+    <button type="button" class="ghost" id="resetSession">Reset this session</button>
   </section>
 
   <section>
@@ -83,7 +85,7 @@
   </section>
 
   <footer>
-    Pause turns everything off for a while. The switch turns it off until you flip it back.
+    Pause turns everything off for a while. The switch turns it off until you flip it back. v1.3.1
   </footer>
   <script src="popup.js"></script>
 </body>
