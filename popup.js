@@ -7,6 +7,7 @@ const DEFAULTS = {
   stopAtEnd: true,
   hideShorts: true,
   hideRelated: true,
+  ambient: true,
   pausedUntil: 0
 };
 
@@ -97,6 +98,7 @@ function paintControls() {
   $("stopAtEnd").checked = !!settings.stopAtEnd;
   $("hideShorts").checked = settings.hideShorts !== false;
   $("hideRelated").checked = settings.hideRelated !== false;
+  $("ambient").checked = settings.ambient !== false;
   markSeg("landing", "data-landing", settings.landing);
   markSeg("timer", "data-timer", String(settings.timerMinutes ?? 0));
   renderStatus();
@@ -144,6 +146,7 @@ $("showComments").addEventListener("change", (e) => save({ showComments: e.targe
 $("stopAtEnd").addEventListener("change", (e) => save({ stopAtEnd: e.target.checked }));
 $("hideShorts").addEventListener("change", (e) => save({ hideShorts: e.target.checked }));
 $("hideRelated").addEventListener("change", (e) => save({ hideRelated: e.target.checked }));
+$("ambient").addEventListener("change", (e) => save({ ambient: e.target.checked }));
 
 document.querySelectorAll("#landing button").forEach((btn) => {
   btn.addEventListener("click", () => {

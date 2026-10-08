@@ -35,6 +35,7 @@ jobs:
           def draw(size, gray=False):
               red = (180, 180, 180) if gray else (255, 0, 0)
               white = (255, 255, 255)
+              ink = (17, 17, 17)
               rows = []
               pad = max(2, size // 10)
               rx0, ry0 = pad, int(size * 0.28)
@@ -44,6 +45,7 @@ jobs:
               tx1 = int(size * 0.66)
               ty0 = int(size * 0.38)
               ty1 = int(size * 0.62)
+              tmid = size // 2
               for y in range(size):
                   row = []
                   for x in range(size):
@@ -51,6 +53,7 @@ jobs:
                       inside = (rx0 + rad <= x <= rx1 - rad and ry0 <= y <= ry1) or (
                           ry0 + rad <= y <= ry1 - rad and rx0 <= x <= rx1
                       )
+                      # corner circles
                       corners = (
                           (rx0 + rad, ry0 + rad),
                           (rx1 - rad, ry0 + rad),
@@ -63,6 +66,7 @@ jobs:
                       if inside:
                           color = red
                       if ty0 <= y <= ty1 and tx0 <= x <= tx1:
+                          # triangle: left edge to right point
                           t = (y - ty0) / max(1, ty1 - ty0)
                           left = tx0
                           right = tx0 + int((tx1 - tx0) * (1 - abs(2 * t - 1)))
@@ -84,7 +88,7 @@ jobs:
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           STAGE=$(mktemp -d)
           mkdir -p "$STAGE/YouTube-Declutter/icons"
-          cp LICENSE README.md manifest.json background.js content.js styles.css popup.html popup.css popup.js "$STAGE/YouTube-Declutter/"
+          cp LICENSE README.md manifest.json background.js content.js ambient.js styles.css popup.html popup.css popup.js "$STAGE/YouTube-Declutter/"
           cp icons/mark.svg icons/icon16.png icons/icon48.png icons/icon128.png icons/icon128-off.png "$STAGE/YouTube-Declutter/icons/"
           mkdir -p dist
           (cd "$STAGE" && zip -r "$GITHUB_WORKSPACE/dist/YouTube-Declutter-v${VERSION}.zip" YouTube-Declutter)

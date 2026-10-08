@@ -8,6 +8,7 @@
     stopAtEnd: true,
     hideShorts: true,
     hideRelated: true,
+    ambient: true,
     pausedUntil: 0
   };
 
