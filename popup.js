@@ -8,6 +8,7 @@ const DEFAULTS = {
   hideShorts: true,
   hideRelated: true,
   ambient: true,
+  ambientSpread: "page",
   pausedUntil: 0
 };
 
@@ -101,6 +102,7 @@ function paintControls() {
   $("ambient").checked = settings.ambient !== false;
   markSeg("landing", "data-landing", settings.landing);
   markSeg("timer", "data-timer", String(settings.timerMinutes ?? 0));
+  markSeg("spread", "data-spread", settings.ambientSpread || "page");
   renderStatus();
 }
 
@@ -147,6 +149,15 @@ $("stopAtEnd").addEventListener("change", (e) => save({ stopAtEnd: e.target.chec
 $("hideShorts").addEventListener("change", (e) => save({ hideShorts: e.target.checked }));
 $("hideRelated").addEventListener("change", (e) => save({ hideRelated: e.target.checked }));
 $("ambient").addEventListener("change", (e) => save({ ambient: e.target.checked }));
+
+document.querySelectorAll("#spread button").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const ambientSpread = btn.getAttribute("data-spread");
+    markSeg("spread", "data-spread", ambientSpread);
+    save({ ambient: true, ambientSpread });
+    $("ambient").checked = true;
+  });
+});
 
 document.querySelectorAll("#landing button").forEach((btn) => {
   btn.addEventListener("click", () => {

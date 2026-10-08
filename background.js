@@ -8,6 +8,7 @@ const DEFAULTS = {
   hideShorts: true,
   hideRelated: true,
   ambient: true,
+  ambientSpread: "page",
   pausedUntil: 0
 };
 

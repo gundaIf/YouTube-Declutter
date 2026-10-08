@@ -18,14 +18,14 @@ That is the toolbar icon, the Chrome extensions tile, and the popup lockup. Vect
 
 ---
 
-## What 1.4.0 does
+## What 1.5.0 does
 
 1. **Intent session.** First visit in a browser session asks *what are you here for?* Optional 10 / 25 / 45 minute timer.
 2. **Never-Home landing.** Logo and Home go to Subscriptions, Search, or Watch Later. The algorithm grid is not a destination.
 3. **Dashboard.** Click the toolbar icon. Pause 5 / 15 / 30 / 60 minutes, turn the extension off, pick a landing, hide Shorts or related, show comments, or reset the current session.
 4. **End of video = stop.** Autoplay is turned off. End screens go away. When a video ends: Done, another from this channel, or back to intent.
 5. **Focus watch page.** Related rail, merch, end cards gone. Comments and live chat hidden unless you opt back in.
-6. **Ambient wash.** On a watch page, the video color field blurs out across the page, the masthead, and the rail. Toggle it from the dashboard.
+6. **Ambient light.** A live, blurred copy of the current frame glows behind the player. Fill page spreads it across the masthead and the rail, like a browser ambilight. Around player keeps it tight.
 
 Shorts URLs are rewritten to the normal `/watch` player so a pasted Short does not open the swipe feed.
 
@@ -37,7 +37,7 @@ This does **not** block in-player video ads. It only hides page promo units.
 
 Chrome will not load a `.zip`. Unzip it first.
 
-1. Download **YouTube-Declutter-v1.4.0.zip** from [Releases](https://github.com/gundaIf/YouTube-Declutter/releases), the attached file, not "Source code (zip)".
+1. Download **YouTube-Declutter-v1.5.0.zip** from [Releases](https://github.com/gundaIf/YouTube-Declutter/releases), the attached file, not "Source code (zip)".
 2. Unzip it. You should get one folder named `YouTube-Declutter` that contains `manifest.json`.
 3. Open `chrome://extensions`.
 4. Turn on **Developer mode** (top right).
@@ -64,7 +64,7 @@ Click the toolbar icon for the dashboard. Pause 5 / 15 / 30 / 60 minutes, or fli
 | Hide Shorts | On |
 | Hide related | On |
 | Stop when a video ends | On |
-| Ambient wash | On |
+| Ambient light | On, fill page |
 | Comments | Hidden |
 
 Nothing leaves your machine. Settings live in `chrome.storage.local`. Session intent lives in `chrome.storage.session`.
@@ -88,7 +88,7 @@ background.js    # redirect + toolbar icon + pause alarm
 content.js       # intent, timer, watch-page, Shorts rewrite
 styles.css       # hide layer
 popup.html/.css/.js
-ambient.js         # watch-page color wash
+ambient.js         # live frame glow
 icons/             # hand-drawn play mark
 ```
 
