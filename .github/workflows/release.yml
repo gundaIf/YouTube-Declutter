@@ -88,7 +88,7 @@ jobs:
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           STAGE=$(mktemp -d)
           mkdir -p "$STAGE/YouTube-Declutter/icons"
-          cp LICENSE README.md manifest.json background.js content.js ambient.js styles.css popup.html popup.css popup.js "$STAGE/YouTube-Declutter/"
+          cp LICENSE README.md manifest.json background.js content.js shared.js ambient.js styles.css popup.html popup.css popup.js options.html options.css options.js "$STAGE/YouTube-Declutter/"
           cp icons/mark.svg icons/icon16.png icons/icon48.png icons/icon128.png icons/icon128-off.png "$STAGE/YouTube-Declutter/icons/"
           mkdir -p dist
           (cd "$STAGE" && zip -r "$GITHUB_WORKSPACE/dist/YouTube-Declutter-v${VERSION}.zip" YouTube-Declutter)

@@ -195,3 +195,42 @@ footer {
 }
 
 #spread { margin-top: 8px; }
+
+select {
+  width: 100%;
+  background: #1c1c1c;
+  color: #f4f0e6;
+  border: 1px solid #2c2c2c;
+  border-radius: 8px;
+  padding: 7px 8px;
+  font-size: 12px;
+}
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.two .ghost { margin-top: 6px; }
+
+.scope { text-transform: none; letter-spacing: 0; color: #b7aa8e; margin-left: 4px; }
+
+.session { margin: 0 0 6px; color: #b7aa8e; font-size: 12px; }
+
+.friction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: -6px 0 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #322414;
+  color: #f0d2a8;
+  font-size: 12px;
+}
+.friction[hidden] { display: none; }
+.friction button {
+  border: 1px solid #5a3a28;
+  background: transparent;
+  color: #f0d2a8;
+  border-radius: 6px;
+  padding: 3px 8px;
+  cursor: pointer;
+}

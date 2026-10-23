@@ -18,40 +18,31 @@
     </label>
   </header>
 
+  <div class="friction" id="friction" hidden>
+    <span id="frictionText"></span>
+    <button type="button" id="frictionCancel">Cancel</button>
+  </div>
+
   <p class="status" id="status">On</p>
-  <p class="session" id="sessionLine" hidden></p>
+
+  <section id="sessionBox">
+    <p class="label">Session</p>
+    <p class="session" id="sessionLine">No session running</p>
+    <select id="modeSelect" aria-label="Session mode"></select>
+    <div class="two">
+      <button type="button" class="ghost" id="newSession">New session</button>
+      <button type="button" class="ghost" id="options">All settings</button>
+    </div>
+  </section>
 
   <section>
     <p class="label">Pause for a bit</p>
-    <div class="seg four" id="pause">
-      <button type="button" data-pause="5">5m</button>
-      <button type="button" data-pause="15">15m</button>
-      <button type="button" data-pause="30">30m</button>
-      <button type="button" data-pause="60">1h</button>
-    </div>
+    <div class="seg four" id="pause"></div>
     <button type="button" class="resume" id="resume" hidden>Resume now</button>
   </section>
 
   <section>
-    <p class="label">When you open YouTube</p>
-    <label class="check">
-      <input type="checkbox" id="askIntent" />
-      Ask what I am here for
-    </label>
-    <button type="button" class="ghost" id="resetSession">Reset this session</button>
-  </section>
-
-  <section>
-    <p class="label">Default landing</p>
-    <div class="seg" id="landing">
-      <button type="button" data-landing="subscriptions">Subscriptions</button>
-      <button type="button" data-landing="search">Search</button>
-      <button type="button" data-landing="watchlater">Watch Later</button>
-    </div>
-  </section>
-
-  <section>
-    <p class="label">Session timer</p>
+    <p class="label">Timer <span class="scope" id="scopeTimer"></span></p>
     <div class="seg four" id="timer">
       <button type="button" data-timer="0">Off</button>
       <button type="button" data-timer="10">10m</button>
@@ -61,40 +52,18 @@
   </section>
 
   <section>
-    <p class="label">Hide</p>
-    <label class="check">
-      <input type="checkbox" id="hideShorts" />
-      Shorts
-    </label>
-    <label class="check">
-      <input type="checkbox" id="hideRelated" />
-      Related videos
-    </label>
-    <label class="check">
-      <input type="checkbox" id="showComments" />
-      Show comments
-    </label>
-  </section>
-
-  <section>
-    <p class="label">Watch page</p>
-    <label class="check">
-      <input type="checkbox" id="stopAtEnd" />
-      Stop when a video ends
-    </label>
-    <label class="check">
-      <input type="checkbox" id="ambient" />
-      Ambient light around the video
-    </label>
-    <div class="seg" id="spread">
-      <button type="button" data-spread="player">Around player</button>
-      <button type="button" data-spread="page">Fill page</button>
-    </div>
+    <p class="label">Right now <span class="scope" id="scope"></span></p>
+    <label class="check"><input type="checkbox" id="hideShorts" />Hide Shorts</label>
+    <label class="check"><input type="checkbox" id="hideRelated" />Hide related videos</label>
+    <label class="check"><input type="checkbox" id="showComments" />Show comments</label>
+    <label class="check"><input type="checkbox" id="disableAutoplay" />Autoplay off</label>
+    <label class="check"><input type="checkbox" id="ambient" />Ambient light</label>
   </section>
 
   <footer>
-    Pause turns everything off for a while. The switch turns it off until you flip it back. v1.5.0
+    Pause turns everything off for a while. The switch turns it off until you flip it back. v2.0.0
   </footer>
+  <script src="shared.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

@@ -1,11 +1,5 @@
 (() => {
-  const DEFAULTS = {
-    enabled: true,
-    ambient: true,
-    ambientSpread: "page",
-    pausedUntil: 0
-  };
-  let settings = { ...DEFAULTS };
+  const Y = globalThis.YTDC;
   let canvas = null;
   let ctx = null;
   let video = null;
@@ -13,15 +7,10 @@
   let raf = 0;
   let lastDraw = 0;
 
-  function isOn() {
-    if (!settings.enabled || settings.ambient === false) return false;
-    const until = Number(settings.pausedUntil) || 0;
-    return !until || until <= Date.now();
-  }
-
-  function watchPage() {
-    return location.pathname === "/watch";
-  }
+  const live = () => Y.live;
+  const eff = () => (live() ? live().eff : Y.DEFAULTS);
+  const wanted = () => !!(live() && live().on && eff().ambient !== false);
+  const watchPage = () => location.pathname === "/watch";
 
   function ensure() {
     if (canvas && document.documentElement.contains(canvas)) return canvas;
@@ -50,20 +39,20 @@
       canvas.style.opacity = "0";
       return;
     }
-    const page = settings.ambientSpread !== "player";
+    const e = eff();
+    const page = e.ambientSpread !== "player";
     const spread = page ? 3.1 : 1.65;
     const w = Math.max(rect.width * spread, page ? window.innerWidth * 1.2 : 0);
     const h = Math.max(rect.height * spread, page ? window.innerHeight * 1.25 : 0);
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
+    const blur = page ? e.ambientBlur : Math.round(e.ambientBlur * 0.65);
     canvas.style.width = `${w}px`;
     canvas.style.height = `${h}px`;
     canvas.style.left = `${cx - w / 2}px`;
     canvas.style.top = `${cy - h / 2}px`;
-    canvas.style.opacity = page ? "0.92" : "0.8";
-    canvas.style.filter = page
-      ? "blur(72px) saturate(1.7) brightness(0.78)"
-      : "blur(46px) saturate(1.55) brightness(0.84)";
+    canvas.style.opacity = String(Math.max(0, Math.min(1, e.ambientIntensity / 100)));
+    canvas.style.filter = `blur(${blur}px) saturate(${e.ambientSaturation / 100}) brightness(${e.ambientBrightness / 100})`;
   }
 
   function draw(now) {
@@ -108,27 +97,14 @@
   }
 
   function tick() {
-    if (!isOn() || !watchPage()) {
+    if (!wanted() || !watchPage()) {
       stop();
       return;
     }
     start();
   }
 
-  chrome.storage.local.get(DEFAULTS).then((stored) => {
-    settings = { ...DEFAULTS, ...stored };
-    tick();
-  }).catch(tick);
-
-  chrome.storage.onChanged.addListener((changes, area) => {
-    if (area !== "local") return;
-    if (changes.enabled) settings.enabled = changes.enabled.newValue;
-    if (changes.ambient) settings.ambient = changes.ambient.newValue;
-    if (changes.ambientSpread) settings.ambientSpread = changes.ambientSpread.newValue;
-    if (changes.pausedUntil) settings.pausedUntil = changes.pausedUntil.newValue;
-    tick();
-  });
-
+  if (Y.live) Y.live.onChange(tick);
   document.addEventListener("yt-navigate-finish", () => {
     video = null;
     tick();

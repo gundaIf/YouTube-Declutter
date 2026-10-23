@@ -1,78 +1,118 @@
 /* Boot splash, lifted as soon as content.js applies settings */
-html.ytdc-booting {
-  background: #0e0e0e !important;
-}
-html.ytdc-booting body {
-  opacity: 0 !important;
-}
+html.ytdc-booting { background: #0e0e0e !important; }
+html.ytdc-booting body { opacity: 0 !important; }
 
 /* ===== Hide layer (only while enabled) ===== */
 
+/* Shorts */
 html.ytdc-on.ytdc-hide-shorts ytd-rich-shelf-renderer[is-shorts],
 html.ytdc-on.ytdc-hide-shorts ytd-reel-shelf-renderer,
 html.ytdc-on.ytdc-hide-shorts ytd-reel-item-renderer,
 html.ytdc-on.ytdc-hide-shorts ytm-shorts-lockup-view-model,
+html.ytdc-on.ytdc-hide-shorts ytm-shorts-lockup-view-model-v2,
 html.ytdc-on.ytdc-hide-shorts ytd-rich-item-renderer:has(a[href^="/shorts/"]),
 html.ytdc-on.ytdc-hide-shorts ytd-video-renderer:has(a[href^="/shorts/"]),
 html.ytdc-on.ytdc-hide-shorts ytd-grid-video-renderer:has(a[href^="/shorts/"]),
 html.ytdc-on.ytdc-hide-shorts ytd-compact-video-renderer:has(a[href^="/shorts/"]),
+html.ytdc-on.ytdc-hide-shorts yt-lockup-view-model:has(a[href^="/shorts/"]),
 html.ytdc-on.ytdc-hide-shorts grid-shelf-view-model:has(a[href^="/shorts/"]),
-html.ytdc-on.ytdc-hide-shorts ytd-guide-entry-renderer:has(a[href="/shorts"]),
-html.ytdc-on.ytdc-hide-shorts ytd-mini-guide-entry-renderer:has(a[href="/shorts"]),
 html.ytdc-on.ytdc-hide-shorts ytd-guide-entry-renderer:has(a[href^="/shorts"]),
 html.ytdc-on.ytdc-hide-shorts ytd-mini-guide-entry-renderer:has(a[href^="/shorts"]),
 html.ytdc-on.ytdc-hide-shorts yt-chip-cloud-chip-renderer:has(a[href*="shorts"]) {
   display: none !important;
 }
 
-html.ytdc-on ytd-guide-entry-renderer:has(a[href="/playables"]),
-html.ytdc-on ytd-mini-guide-entry-renderer:has(a[href="/playables"]),
-html.ytdc-on ytd-rich-section-renderer:has(a[href*="playables"]),
-html.ytdc-on ytd-guide-entry-renderer:has(a[href="/gaming"]),
-html.ytdc-on ytd-guide-entry-renderer:has(a[href="/feed/explore"]),
-html.ytdc-on ytd-guide-entry-renderer:has(a[href="/feed/trending"]) {
+/* Trending, Gaming, Playables, Explore */
+html.ytdc-on.ytdc-hide-explore ytd-guide-entry-renderer:has(a[href="/playables"]),
+html.ytdc-on.ytdc-hide-explore ytd-mini-guide-entry-renderer:has(a[href="/playables"]),
+html.ytdc-on.ytdc-hide-explore ytd-rich-section-renderer:has(a[href*="playables"]),
+html.ytdc-on.ytdc-hide-explore ytd-guide-entry-renderer:has(a[href="/gaming"]),
+html.ytdc-on.ytdc-hide-explore ytd-guide-entry-renderer:has(a[href="/feed/explore"]),
+html.ytdc-on.ytdc-hide-explore ytd-guide-entry-renderer:has(a[href="/feed/trending"]) {
   display: none !important;
 }
 
-html.ytdc-on ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
-html.ytdc-on ytd-browse[page-subtype="home"] ytd-rich-section-renderer {
+/* Home feed (kept hidden unless Home mode is "leave alone") */
+html.ytdc-on.ytdc-hide-home ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
+html.ytdc-on.ytdc-hide-home ytd-browse[page-subtype="home"] ytd-rich-section-renderer {
   display: none !important;
 }
 
-html.ytdc-on #masthead-ad,
-html.ytdc-on ytd-ad-slot-renderer,
-html.ytdc-on ytd-banner-promo-renderer,
-html.ytdc-on ytd-statement-banner-renderer,
-html.ytdc-on .ytd-promoted-sparkles-web-renderer,
-html.ytdc-on ytd-promoted-sparkles-web-renderer {
+/* Page promo units */
+html.ytdc-on.ytdc-hide-ads #masthead-ad,
+html.ytdc-on.ytdc-hide-ads ytd-ad-slot-renderer,
+html.ytdc-on.ytdc-hide-ads ytd-banner-promo-renderer,
+html.ytdc-on.ytdc-hide-ads ytd-statement-banner-renderer,
+html.ytdc-on.ytdc-hide-ads .ytd-promoted-sparkles-web-renderer,
+html.ytdc-on.ytdc-hide-ads ytd-promoted-sparkles-web-renderer {
   display: none !important;
 }
 
-/* Focus watch page */
+/* Watch page */
 html.ytdc-on.ytdc-hide-related #related,
 html.ytdc-on.ytdc-hide-related ytd-watch-next-secondary-results-renderer,
-html.ytdc-on.ytdc-hide-related #secondary #related,
-html.ytdc-on.ytdc-hide-related ytd-merch-shelf-renderer,
-html.ytdc-on.ytdc-hide-related #merch-shelf,
-html.ytdc-on.ytdc-hide-related .ytp-ce-element,
-html.ytdc-on.ytdc-hide-related .ytp-endscreen-content,
-html.ytdc-on.ytdc-hide-related .ytp-fullscreen-grid,
-html.ytdc-on.ytdc-hide-related .ytp-pause-overlay,
-html.ytdc-on.ytdc-hide-related ytd-player-legacy-desktop-watch-analytics-renderer {
+html.ytdc-on.ytdc-hide-related #secondary #related {
+  display: none !important;
+}
+
+html.ytdc-on.ytdc-hide-endcards .ytp-ce-element,
+html.ytdc-on.ytdc-hide-endcards .ytp-endscreen-content,
+html.ytdc-on.ytdc-hide-endcards .ytp-fullscreen-grid,
+html.ytdc-on.ytdc-hide-endcards .ytp-pause-overlay,
+html.ytdc-on.ytdc-hide-endcards ytd-player-legacy-desktop-watch-analytics-renderer {
+  display: none !important;
+}
+
+html.ytdc-on.ytdc-hide-merch ytd-merch-shelf-renderer,
+html.ytdc-on.ytdc-hide-merch #merch-shelf,
+html.ytdc-on.ytdc-hide-merch ytd-ticket-shelf-renderer {
   display: none !important;
 }
 
 html.ytdc-on.ytdc-hide-comments #comments,
-html.ytdc-on.ytdc-hide-comments ytd-comments,
-html.ytdc-on.ytdc-hide-comments #chat,
-html.ytdc-on.ytdc-hide-comments #chat-container,
-html.ytdc-on.ytdc-hide-comments ytd-live-chat-frame,
-html.ytdc-on.ytdc-hide-comments #panels-full-bleed-container {
+html.ytdc-on.ytdc-hide-comments ytd-comments {
   display: none !important;
 }
 
+html.ytdc-on.ytdc-hide-chat #chat,
+html.ytdc-on.ytdc-hide-chat #chat-container,
+html.ytdc-on.ytdc-hide-chat ytd-live-chat-frame,
+html.ytdc-on.ytdc-hide-chat #panels-full-bleed-container {
+  display: none !important;
+}
+
+html.ytdc-on.ytdc-hide-desc ytd-watch-metadata #description,
+html.ytdc-on.ytdc-hide-desc ytd-watch-metadata #description-inner {
+  display: none !important;
+}
+
+/* Chrome of the site */
+html.ytdc-on.ytdc-hide-chips ytd-feed-filter-chip-bar-renderer,
+html.ytdc-on.ytdc-hide-chips #chips-wrapper {
+  display: none !important;
+}
+
+html.ytdc-on.ytdc-hide-bell ytd-notification-topbar-button-renderer {
+  display: none !important;
+}
+
+html.ytdc-on.ytdc-hide-guide tp-yt-app-drawer#guide,
+html.ytdc-on.ytdc-hide-guide ytd-mini-guide-renderer,
+html.ytdc-on.ytdc-hide-guide #guide-button {
+  display: none !important;
+}
+html.ytdc-on.ytdc-hide-guide ytd-page-manager {
+  margin-left: 0 !important;
+}
+
+/* "Search" landing: Home becomes an empty page with the search box */
 html.ytdc-on.ytdc-search-home ytd-browse[page-subtype="home"] #contents,
 html.ytdc-on.ytdc-search-home ytd-two-column-browse-results-renderer {
+  display: none !important;
+}
+
+/* Videos hidden by channel/word filters (set by content.js) */
+html.ytdc-on [data-ytdc-hide] {
   display: none !important;
 }
 
@@ -86,14 +126,8 @@ html.ytdc-on.ytdc-search-home ytd-two-column-browse-results-renderer {
 }
 #ytdc-glow[hidden] { display: none !important; }
 
-html.ytdc-ambient {
-  background: #0f0f0f !important;
-}
-html.ytdc-ambient body {
-  background: transparent !important;
-  position: relative;
-  z-index: 1;
-}
+html.ytdc-ambient { background: #0f0f0f !important; }
+html.ytdc-ambient body { background: transparent !important; position: relative; z-index: 1; }
 html.ytdc-ambient ytd-app,
 html.ytdc-ambient #content,
 html.ytdc-ambient #page-manager,

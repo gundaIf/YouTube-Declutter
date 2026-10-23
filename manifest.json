@@ -1,23 +1,15 @@
 {
   "manifest_version": 3,
   "name": "YouTube Declutter",
-  "version": "1.5.0",
-  "description": "Use YouTube intentionally. Never Home. No Shorts. Watch with a reason, then stop.",
+  "version": "2.0.0",
+  "description": "Use YouTube intentionally. Pick how each session runs, set your own limits, hide what you want, then stop.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": [
-    "storage",
-    "tabs",
-    "webNavigation",
-    "alarms"
-  ],
-  "host_permissions": [
-    "*://*.youtube.com/*",
-    "*://youtube.com/*"
-  ],
+  "permissions": ["storage", "tabs", "webNavigation", "alarms"],
+  "host_permissions": ["*://*.youtube.com/*", "*://youtube.com/*"],
   "action": {
     "default_popup": "popup.html",
     "default_title": "YouTube Declutter",
@@ -27,17 +19,23 @@
       "128": "icons/icon128.png"
     }
   },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "toggle-enabled": { "description": "Turn YouTube Declutter on or off" },
+    "pause-15": { "description": "Pause for 15 minutes" },
+    "end-session": { "description": "End the current session" }
+  },
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": [
-        "*://*.youtube.com/*",
-        "*://youtube.com/*"
-      ],
+      "matches": ["*://*.youtube.com/*", "*://youtube.com/*"],
       "css": ["styles.css"],
-      "js": ["content.js", "ambient.js"],
+      "js": ["shared.js", "content.js", "ambient.js"],
       "run_at": "document_start"
     }
   ]

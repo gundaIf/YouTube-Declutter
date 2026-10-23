@@ -4,79 +4,52 @@
   <img src="icons/mark.svg" alt="YouTube Declutter, hand-drawn play mark" width="168" height="168" />
 </p>
 
-<p align="center"><strong>Use YouTube intentionally.</strong></p>
+<p align="center"><strong>Use YouTube intentionally. Decide how each session runs.</strong></p>
 
-A small Chrome extension that removes the casino floor and puts a reason at the door. No Home feed. No Shorts. No related-video rabbit hole. Watch what you came for, then stop.
-
----
-
-## Mark
-
-Hand-drawn YouTube play badge. Marker red on paper white. Wobbly ink outline, white triangle, no wordmark.
-
-That is the toolbar icon, the Chrome extensions tile, and the popup lockup. Vector fallback: [`icons/mark.svg`](icons/mark.svg).
+A small Chrome extension that removes the casino floor and puts a reason at the door. Every session starts with a mode you pick. Every behaviour is a setting you can change.
 
 ---
 
-## What 1.5.0 does
+## What 2.0 adds
 
-1. **Intent session.** First visit in a browser session asks *what are you here for?* Optional 10 / 25 / 45 minute timer.
-2. **Never-Home landing.** Logo and Home go to Subscriptions, Search, or Watch Later. The algorithm grid is not a destination.
-3. **Dashboard.** Click the toolbar icon. Pause 5 / 15 / 30 / 60 minutes, turn the extension off, pick a landing, hide Shorts or related, show comments, or reset the current session.
-4. **End of video = stop.** Autoplay is turned off. End screens go away. When a video ends: Done, another from this channel, or back to intent.
-5. **Focus watch page.** Related rail, merch, end cards gone. Comments and live chat hidden unless you opt back in.
-6. **Ambient light.** A live, blurred copy of the current frame glows behind the player. Fill page spreads it across the masthead and the rail, like a browser ambilight. Around player keeps it tight.
+1. **Session modes.** A mode is a bundle of settings: landing page, timer, video cap, what to hide, what happens when a video ends. Six come built in. Make, copy, reorder and delete your own in the options page.
+2. **Customize this session.** The intent card has a "Customize this session" drawer. Set a one-off timer, video cap, related, comments, ambient, autoplay or end-of-video behaviour without touching your modes.
+3. **Limits.** Session timer, max videos per session, daily limit, quiet hours, extension length, max extensions, and what "Done" does (landing page, new tab, close tab).
+4. **Hide anything.** Shorts, related rail, end cards, comments, live chat, description, merch, Explore links, promo units, filter chips, notification bell, the whole sidebar. Each one is a toggle, per default and per mode.
+5. **Channel and word filters.** Block channels or words everywhere. Turn on an allowlist in a mode for a tight, single-purpose session.
+6. **Reason note.** Optionally type why you're here. It sits in the timer pill.
+7. **Friction.** An optional countdown before the popup lets you turn the extension off or pause it.
+8. **Usage.** Visible YouTube time per day, 14-day chart, stored on your machine only.
+9. **Ambient light controls.** Spread, intensity, blur, saturation, brightness.
+10. **Backup.** Export and import settings and modes as JSON. Keyboard shortcuts at `chrome://extensions/shortcuts`.
 
-Shorts URLs are rewritten to the normal `/watch` player so a pasted Short does not open the swipe feed.
+Order of precedence: your defaults, then the mode, then the one-off session tweaks.
 
-This does **not** block in-player video ads. It only hides page promo units.
+This does **not** block in-player video ads. It only hides page promo units. The friction countdown is a speed bump, not a lock.
 
 ---
 
 ## Install in Chrome
 
-Chrome will not load a `.zip`. Unzip it first.
+1. Download the zip from [Releases](https://github.com/gundaIf/YouTube-Declutter/releases) and unzip it. You should get one folder named `YouTube-Declutter` that contains `manifest.json`.
+2. Open `chrome://extensions`.
+3. Turn on **Developer mode** (top right).
+4. Click **Load unpacked** and select that `YouTube-Declutter` folder.
+5. Pin the extension. Click the icon for the dashboard, or open **Details → Extension options** for everything.
 
-1. Download **YouTube-Declutter-v1.5.0.zip** from [Releases](https://github.com/gundaIf/YouTube-Declutter/releases), the attached file, not "Source code (zip)".
-2. Unzip it. You should get one folder named `YouTube-Declutter` that contains `manifest.json`.
-3. Open `chrome://extensions`.
-4. Turn on **Developer mode** (top right).
-5. Click **Load unpacked** → select that `YouTube-Declutter` folder.
-6. Pin the extension. Click the icon for the dashboard. Open YouTube. Say why you are there.
-
-Reload after updates: `chrome://extensions` → the refresh icon on the card.
-
-Do not drag the zip onto Chrome. Do not use “Pack extension” unless you know you need a `.crx`.
+Reload after updates: `chrome://extensions` → the refresh icon on the card. Existing settings carry over.
 
 ---
 
-Click the toolbar icon for the dashboard. Pause 5 / 15 / 30 / 60 minutes, or flip the switch to turn it off until you turn it back on.
+## Where things live
 
-## Defaults
-
-| Setting | Default |
+| Place | What |
 |---|---|
-| Extension | On |
-| Pause | Off |
-| Ask intent each session | On |
-| Landing | Subscriptions |
-| Timer | Off |
-| Hide Shorts | On |
-| Hide related | On |
-| Stop when a video ends | On |
-| Ambient light | On, fill page |
-| Comments | Hidden |
+| Toolbar popup | On/off, pause, switch or end the session, quick toggles for the current session, timer |
+| Options page | Modes, every setting, filters, usage, backup |
+| Intent card | Pick a mode, optional note, optional one-off tweaks |
 
-Nothing leaves your machine. Settings live in `chrome.storage.local`. Session intent lives in `chrome.storage.session`.
-
----
-
-## Permissions
-
-- `storage`: settings and the current session
-- `webNavigation` + `tabs`: catch Home and send you to your landing
-- `alarms`: wake the extension when a pause ends
-- `youtube.com` host: content script and CSS
+Nothing leaves your machine. Settings and usage live in `chrome.storage.local`. The running session lives in `chrome.storage.session` and clears when the browser closes (or after the idle time you set).
 
 ---
 
@@ -84,17 +57,17 @@ Nothing leaves your machine. Settings live in `chrome.storage.local`. Session in
 
 ```
 manifest.json
-background.js    # redirect + toolbar icon + pause alarm
-content.js       # intent, timer, watch-page, Shorts rewrite
+shared.js        # settings schema, defaults, mode merging, helpers
+background.js    # redirects, toolbar icon, pause alarm, usage, shortcuts
+content.js       # intent card, limits, gates, filters, watch page
+ambient.js       # live frame glow
 styles.css       # hide layer
-popup.html/.css/.js
-ambient.js         # live frame glow
-icons/             # hand-drawn play mark
+popup.*          # dashboard
+options.*        # full settings page
+icons/
 ```
 
 Vanilla JS. No build step. No analytics.
-
----
 
 ## License
 
