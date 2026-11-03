@@ -1,7 +1,7 @@
 # YouTube Declutter
 
 <p align="center">
-  <img src="icons/mark.svg" alt="YouTube Declutter, hand-drawn play mark" width="168" height="168" />
+  <img src="icons/mark.svg" alt="YouTube Declutter, linocut play mark" width="168" height="168" />
 </p>
 
 <p align="center"><strong>Use YouTube intentionally. Decide how each session runs.</strong></p>
@@ -64,7 +64,8 @@ ambient.js       # live frame glow
 styles.css       # hide layer
 popup.*          # dashboard
 options.*        # full settings page
-icons/
+icons/           # mark.svg and toolbar PNGs
+tools/make-icons.py  # redraws icons/ (needs Pillow)
 ```
 
 Vanilla JS. No build step. No analytics.

@@ -1,5 +1,14 @@
+/* Paper and ink: the dashboard is printed like the mark, black on cream. */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
+  --paper: #efe8d7;
+  --plate: #f6f1e4;
+  --ink: #1b1a17;
+  --ink-soft: #4a453c;
+  --ink-faint: #857c6c;
+  --rule: rgba(27, 26, 23, .22);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .18 0 0 0 -.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
 }
 
 * { box-sizing: border-box; }
@@ -8,8 +17,8 @@ body {
   margin: 0;
   width: 340px;
   padding: 16px 16px 14px;
-  background: #141414;
-  color: #f4f0e6;
+  background: var(--grain), var(--paper);
+  color: var(--ink);
   font: 13px/1.4 "YouTube Sans", "Roboto", system-ui, sans-serif;
 }
 
@@ -23,11 +32,10 @@ header {
 .mark {
   width: 36px;
   height: 36px;
-  border-radius: 9px;
+  border-radius: 4px;
   flex: 0 0 36px;
   object-fit: cover;
-  background: #ffffff;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--rule);
 }
 
 .titles { flex: 1; min-width: 0; }
@@ -37,48 +45,51 @@ header {
   font-size: 10px;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: #b7aa8e;
+  color: var(--ink-faint);
 }
 
 h1 {
   margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -.02em;
+  font: 700 20px/1.1 var(--serif);
+  letter-spacing: -.01em;
 }
 
 .status {
   margin: -6px 0 14px;
   padding: 8px 10px;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 12px;
   letter-spacing: .02em;
-  background: #1c1c1c;
-  color: #cfc8b8;
+  background: rgba(27, 26, 23, .06);
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
 }
 
 .status[data-state="on"] {
-  background: #24301c;
-  color: #d7e8c4;
+  background: var(--plate);
+  color: var(--ink);
+  border-color: var(--ink);
 }
 
 .status[data-state="paused"] {
-  background: #322414;
-  color: #f0d2a8;
+  background: #e8d6b4;
+  color: #5a3f1c;
+  border-color: #b9986a;
 }
 
 .status[data-state="off"] {
-  background: #2a1818;
-  color: #f0c4c4;
+  background: #ead1c4;
+  color: #6a2a20;
+  border-color: #c08c7c;
 }
 
 .resume {
   margin-top: 6px;
   width: 100%;
-  border: 1px solid #3a3a3a;
-  background: #1c1c1c;
-  color: #f4f0e6;
-  border-radius: 8px;
+  border: 1.5px solid var(--ink);
+  background: var(--plate);
+  color: var(--ink);
+  border-radius: 4px;
   padding: 7px 8px;
   font-size: 12px;
   cursor: pointer;
@@ -88,7 +99,7 @@ section { margin-bottom: 14px; }
 
 .label {
   margin: 0 0 6px;
-  color: #8f8f8f;
+  color: var(--ink-faint);
   font-size: 11px;
   letter-spacing: .04em;
   text-transform: uppercase;
@@ -99,10 +110,10 @@ section { margin-bottom: 14px; }
   align-items: center;
   gap: 8px;
   margin: 6px 0;
-  color: #e8e4d8;
+  color: var(--ink);
 }
 
-.check input { accent-color: #f2ead8; }
+.check input { accent-color: var(--ink); }
 
 .seg {
   display: grid;
@@ -114,19 +125,21 @@ section { margin-bottom: 14px; }
 #timer.seg { grid-template-columns: repeat(4, 1fr); }
 
 .seg button {
-  border: 1px solid #2c2c2c;
-  background: #1c1c1c;
-  color: #d8d4ca;
-  border-radius: 8px;
+  border: 1px solid var(--rule);
+  background: var(--plate);
+  color: var(--ink-soft);
+  border-radius: 4px;
   padding: 7px 6px;
   font-size: 11px;
   cursor: pointer;
 }
 
+.seg button:hover { border-color: var(--ink); }
+
 .seg button.on {
-  background: #f2ead8;
-  color: #161616;
-  border-color: #f2ead8;
+  background: var(--ink);
+  color: var(--plate);
+  border-color: var(--ink);
   font-weight: 600;
 }
 
@@ -141,7 +154,8 @@ section { margin-bottom: 14px; }
 .switch span {
   position: absolute;
   inset: 0;
-  background: #3a3a3a;
+  background: #d3c9b2;
+  border: 1px solid var(--rule);
   border-radius: 999px;
   cursor: pointer;
 }
@@ -149,47 +163,45 @@ section { margin-bottom: 14px; }
 .switch span::after {
   content: "";
   position: absolute;
-  top: 3px;
-  left: 3px;
+  top: 2px;
+  left: 2px;
   width: 18px;
   height: 18px;
-  background: #eee;
+  background: var(--plate);
   border-radius: 50%;
+  box-shadow: 0 1px 1px rgba(27, 26, 23, .25);
   transition: transform .16s ease;
 }
 
-.switch input:checked + span { background: #c4b48a; }
+.switch input:checked + span { background: var(--ink); border-color: var(--ink); }
 .switch input:checked + span::after { transform: translateX(18px); }
-
-.session {
-  margin: -8px 0 14px;
-  color: #b7aa8e;
-  font-size: 12px;
-}
 
 .ghost {
   margin-top: 6px;
   width: 100%;
-  border: 1px solid #2c2c2c;
+  border: 1px solid var(--rule);
   background: transparent;
-  color: #d8d4ca;
-  border-radius: 8px;
+  color: var(--ink);
+  border-radius: 4px;
   padding: 7px 8px;
   font-size: 12px;
   cursor: pointer;
 }
 
 .ghost:hover {
-  border-color: #4a4a4a;
+  border-color: var(--ink);
+  background: var(--plate);
 }
 
 body.is-off section,
 body.is-paused section:not(:first-of-type) {
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 footer {
-  color: #7a7a7a;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-faint);
   font-size: 11px;
   line-height: 1.45;
 }
@@ -198,10 +210,10 @@ footer {
 
 select {
   width: 100%;
-  background: #1c1c1c;
-  color: #f4f0e6;
-  border: 1px solid #2c2c2c;
-  border-radius: 8px;
+  background: var(--plate);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
   padding: 7px 8px;
   font-size: 12px;
 }
@@ -209,9 +221,9 @@ select {
 .two { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .two .ghost { margin-top: 6px; }
 
-.scope { text-transform: none; letter-spacing: 0; color: #b7aa8e; margin-left: 4px; }
+.scope { text-transform: none; letter-spacing: 0; color: var(--ink-soft); margin-left: 4px; }
 
-.session { margin: 0 0 6px; color: #b7aa8e; font-size: 12px; }
+.session { margin: 0 0 6px; color: var(--ink-soft); font-size: 12px; }
 
 .friction {
   display: flex;
@@ -220,17 +232,18 @@ select {
   gap: 8px;
   margin: -6px 0 12px;
   padding: 8px 10px;
-  border-radius: 8px;
-  background: #322414;
-  color: #f0d2a8;
+  border-radius: 4px;
+  background: #e8d6b4;
+  color: #5a3f1c;
+  border: 1px solid #b9986a;
   font-size: 12px;
 }
 .friction[hidden] { display: none; }
 .friction button {
-  border: 1px solid #5a3a28;
+  border: 1px solid #8a6a40;
   background: transparent;
-  color: #f0d2a8;
-  border-radius: 6px;
+  color: #5a3f1c;
+  border-radius: 4px;
   padding: 3px 8px;
   cursor: pointer;
 }
