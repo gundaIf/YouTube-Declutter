@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "YouTube Declutter",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Use YouTube intentionally. Pick how each session runs, set your own limits, hide what you want, then stop.",
   "icons": {
     "16": "icons/icon16.png",
